@@ -1,6 +1,6 @@
 # Quick Start
 
-Needs utils from the tposedb repo.
+Needs utils from the tposedb repo: https://github.com/zakimjz/tposedb
 
 Here are the steps to follow for the example file test.ascii
 
