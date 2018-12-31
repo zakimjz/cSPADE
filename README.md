@@ -1,5 +1,41 @@
-Follow these steps:
+# Quick Start
 
+Needs utils from the tposedb repo.
+
+Here are the steps to follow for the example file test.ascii
+
+1) makebin test.ascii test.data
+The *.data extension for binary is required
+
+2) getconf -i test -o test
+
+3) exttpose -i test -o test -s 0 -l -x
+
+4) now you can run spade 
+
+    spade -e 1 -r -i test -s 0.2 -u 2 -o
+
+this means max gap between events is 2, and minsup is 20% or 2/10
+
+an example output pattern:
+
+22 80 -> 72 -> 42 -> 22 -- 2 2
+
+gives you the frequent sequence followed by support (the last two
+		numbers, which will be the same in this application).
+
+This means that the itemset (22 80) is followed by 72 followed by
+42 followed by 22.
+
+Other flags of interest include:
+
+    -w max_window for the whole sequence
+    -z max_itemset length
+    -Z max_seq length (in terms of the number of itemsets it can have)
+
+# Details
+
+## Generating synthetic data
 1) Generate a data file using the IBM data generator program,
 gen. This is the same as the public version from Almaden, but I have
 enhanced it to generate a configuration file, and a modified ascii
@@ -10,19 +46,35 @@ should be named XXX.data (note the 'data' extension). The gen program
 also produces a XXX.conf file automatically.
 
 The format of the binary file should be 
-<cid> <tid> <numitem> <item list>
+cid tid numitem itemlist
 
 run gen seq -help for data generation options.
 
-1b) If you are using a real DB then it must still be in the same
-format. If it is initially in ASCII format, you can covert it to
-binary using
+##Your own sequence data in ASCII format
 
-makebin XXX.asc XXX.data, where XXX.asc is the ascii db input.
+Your data must conform to the following format in ASCII
+    
+    cid tid numitems itemlist
 
-Next run ./getconf -i XXX -o XXX to obtain XXX.conf file.
+cid is sequence ID (int)
+tid is event ID/time (int)
+numitems is number of items in event (int)
+itemlist is sorted item IDs (int) for that event
 
-2) run: exttpose -i XXX -o XXX -l -s LMINSUP
+See test.ascii and test2.ascii for examples
+
+If you are using a real DB then it must still be in the same
+format. If it is initially in ASCII format, you can convert it to
+binary using:
+
+    makebin XXX.asc XXX.data, where XXX.asc is the ascii db input.
+
+Next run 
+    
+    ./getconf -i XXX -o XXX to obtain XXX.conf file.
+
+Next, run: 
+    exttpose -i XXX -o XXX -l -s LMINSUP
         e.g. exttpose -i XXX -o XXX -l -s 0 -x
 
 note: this produces the files XXX.tpose, and XXX.idx
@@ -38,11 +90,14 @@ and it will continue to work for all values of MINSUP >= LMINSUP when you
 run spade.
 
 The time for inverting is stored in summary.out. The format is:
-TPOSE DB_FILENAME X NUMITEMS TOTAL_TIME
+
+    TPOSE DB_FILENAME X NUMITEMS TOTAL_TIME
 
 (see note one TOTAL_TIME below)
 
-3) Now you can run cSPADE as follows:
+##Running cSPADE
+Now you can run cSPADE as follows:
+
         spade -e 1 -r -i XXX -s MINSUP
 
 MINSUP is in fractions, i.e., specify 0.5 if you want 50% minsup or
@@ -62,16 +117,25 @@ MINSUP is in fractions, i.e., specify 0.5 if you want 50% minsup or
         -M use for weighted support (multiple counts/seq)
 
   For example here are a few exmaple runs:
-        spade -e 1 -r -i XXX -s MINSUP -l 2
-        spade -e 1 -r -i XXX -s MINSUP -u 2
-        spade -e 1 -r -i XXX -s MINSUP -l 2 -u 2
-        spade -e 1 -r -i XXX -s MINSUP -l 2 -u 4
-        spade -e 1 -r -i XXX -s MINSUP -w 4
-        spade -e 1 -r -i XXX -s MINSUP -l 2 -u 4 -w 10
-        spade -e 1 -r -i XXX -s MINSUP -z 3
-        spade -e 1 -r -i XXX -s MINSUP -Z 3
-        spade -e 1 -r -i XXX -s MINSUP -z 3 -Z 4
-        etc.....
+    
+    spade -e 1 -r -i XXX -s MINSUP -l 2
+    
+    spade -e 1 -r -i XXX -s MINSUP -u 2
+    
+    spade -e 1 -r -i XXX -s MINSUP -l 2 -u 2
+    
+    spade -e 1 -r -i XXX -s MINSUP -l 2 -u 4
+    
+    spade -e 1 -r -i XXX -s MINSUP -w 4
+    
+    spade -e 1 -r -i XXX -s MINSUP -l 2 -u 4 -w 10
+    
+    spade -e 1 -r -i XXX -s MINSUP -z 3
+    
+    spade -e 1 -r -i XXX -s MINSUP -Z 3
+    
+    spade -e 1 -r -i XXX -s MINSUP -z 3 -Z 4
+  
 
 
 note that the summary of the run is stored in the summary.out
@@ -110,31 +174,3 @@ Note4: You can use the -m MEMSIZE option to increase the memory
 available to the program. MEMSIZE is given in MB. For example if you
 have 64 MB available, then use -m 64 (the default is 32MB).
 
->>>>>>>>>>>>>>>>
-
-Here are the steps to follow for the example file test.ascii.data
-
-1) makebin test.ascii.data test.data
-The *.data extension for binary is required
-
-2) getconf -i test -o test
-
-3) exttpose -i test -o test -s 0 -l -x
-
-4) now you can run spade 
-
-e.g.: run "./spade -e 1 -r -i test -s 0.2 -u 2 -o"
-this means max gap between events is 2, and minsup is 20% or 2/10
-
-an example output pattern:
-22 80 -> 72 -> 42 -> 22 -- 2 2
-gives you the frequent sequence followed by support (the last two
-		numbers, which will be the same in this application).
-
-This means that the itemset (22 80) is followed by 72 followed by
-42 followed by 22.
-
-Other flags of interest include:
--w max_window for the whole sequence
--z max_itemset length
--Z max_seq length (in terms of the number of itemsets it can have)
