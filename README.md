@@ -35,21 +35,6 @@ Other flags of interest include:
 
 # Details
 
-## Generating synthetic data
-1) Generate a data file using the IBM data generator program,
-gen. This is the same as the public version from Almaden, but I have
-enhanced it to generate a configuration file, and a modified ascii
-database file.
-
-For cSPADE make sure the DB is in binary format.  The output file
-should be named XXX.data (note the 'data' extension). The gen program
-also produces a XXX.conf file automatically.
-
-The format of the binary file should be 
-cid tid numitem itemlist
-
-run gen seq -help for data generation options.
-
 ##Your own sequence data in ASCII format
 
 Your data must conform to the following format in ASCII
@@ -173,4 +158,20 @@ for spade. For example:
 Note4: You can use the -m MEMSIZE option to increase the memory
 available to the program. MEMSIZE is given in MB. For example if you
 have 64 MB available, then use -m 64 (the default is 32MB).
+
+## Generating synthetic data
+1) Generate a data file using the IBM data generator program,
+gen. This is the same as the public version from Almaden, but I have
+enhanced it to generate a configuration file, and a modified ascii
+database file.
+
+For cSPADE make sure the DB is in binary format.  The output file
+should be named XXX.data (note the 'data' extension). The gen program
+also produces a XXX.conf file automatically.
+
+The format of the binary file should be 
+cid tid numitem itemlist
+
+run gen seq -help for data generation options.
+
 
