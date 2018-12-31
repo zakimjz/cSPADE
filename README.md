@@ -35,7 +35,7 @@ Other flags of interest include:
 
 # Details
 
-##Your own sequence data in ASCII format
+## Your own sequence data in ASCII format
 
 Your data must conform to the following format in ASCII
     
@@ -80,7 +80,7 @@ The time for inverting is stored in summary.out. The format is:
 
 (see note one TOTAL_TIME below)
 
-##Running cSPADE
+## Running cSPADE
 Now you can run cSPADE as follows:
 
         spade -e 1 -r -i XXX -s MINSUP
