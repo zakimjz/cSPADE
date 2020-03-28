@@ -1,3 +1,26 @@
+# cSPADE Algorithm
+
+cSpade mines constrained frequent sequences. It is based on the SPADE algorithm (http://github.com/zakimjz/SPADE). 
+The constraints can take the form of length or width limitations on the
+sequences, minimum or maximum gap constraints on consecutive
+sequence elements, applying a time window on allowable
+sequences, incorporating item constraints, and finding
+sequences predictive of one or more classes. The class specific sequences can be used for sequence classification as 
+described in [2000-featuremine].
+
+**Relevant Publications**
+
+*[2000-cspade] Mohammed J. Zaki. Sequences mining in categorical domains: incorporating constraints. In 9th ACM International Conference on Information and Knowledge Management. November 2000.
+
+*[2000-featuremine:is] Neal Lesh, Mohammed J. Zaki, and Mitsunori Ogihara. Scalable feature mining for sequential data. IEEE Intelligent Systems and their Applications, 15(2):48–56, Mar/Apr 2000. Special issue on Data Mining.
+
+**Related Software**
+
+* https://pypi.org/project/pycspade/, python cSpade package (Courtesy: Yukio Fukuzawa)
+
+* http://cran.r-project.org/web/packages/arulesSequences/index.html, aRulesSequences (R): R package that contains the cSPADE code (Courtesy: Christian Buchta and Michael Hahsler, Vienna University of Economics and Business Administration).
+
+
 # Quick Start
 
 Needs utils from the tposedb repo: https://github.com/zakimjz/tposedb
