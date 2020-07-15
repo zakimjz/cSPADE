@@ -69,13 +69,13 @@ int postpruning =0;
 
 int max_seq_len = 100;
 int max_iset_len = 100;
-char *lenopts[]={
-#define SEQ 0
-   "s",
-#define ISET 1
-   "i",
-   NULL
-};
+/* char *lenopts[]={ */
+/* #define SEQ 0 */
+/*    "s", */
+/* #define ISET 1 */
+/*    "i", */
+/*    NULL */
+/* }; */
 
 
 ofstream mout;
@@ -1590,7 +1590,7 @@ int main(int argc, char **argv)
    else{
       fprintf(out, "0 ");
       if (use_maxgap) fprintf(out, "%d ", max_gap);
-      else fprintf(out, "-1 ", max_gap);
+      else fprintf(out, "-1 ");
    }
 
    fprintf(out, "%d %d %d : ", min_gap, max_iset_len, max_seq_len);
